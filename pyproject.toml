@@ -1,0 +1,57 @@
+[build-system]
+requires = ["hatchling>=1.18.0"]
+build-backend = "hatchling.build"
+
+[project]
+name = "neurosim"
+description = "Neurosim: core primitives and evaluation utilities"
+readme = "README.md"
+requires-python = ">=3.11"
+license = { file = "LICENSE" }
+authors = [
+  { name = "Ashwin Thinnappan", email = "ashwin@paradigm-shift.ai" },
+  { name = "Anais Howland", email = "anais@paradigm-shift.ai" },
+]
+keywords = ["paradigm shift", "simulation", "ml", "evaluation", "agents"]
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "License :: Other/Proprietary License",
+  "Operating System :: OS Independent",
+]
+dependencies = [
+  "pydantic>=2.11.0",
+  "google-cloud-storage>=3.3.0",
+  "typing_extensions>=4.0.0",
+  "google-cloud-firestore>=2.10.0",
+]
+dynamic = ["version"]
+
+[tool.hatch.version]
+path = "src/neurosim/__init__.py"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/neurosim"]
+
+[project.optional-dependencies]
+monitor = [
+  "google-cloud-run>=0.11.0",
+  "google-api-core>=2.25.1",
+  "schedule>=1.2.0",
+  "requests>=2.32.3",
+]
+core = ["zstandard>=0.23.0", "psycopg[binary]>=3.1", "python-dotenv>=1.0.1"]
+judge = ["openai>=1.40.0", "google-genai>=1.31.0", "Pillow>=10.3.0"]
+
+[[tool.uv.index]]
+name = "pypi"
+url = "https://pypi.org/simple/"
+
+[[tool.uv.index]]
+name = "neuro-deploy"
+url = "https://us-west1-python.pkg.dev/evaluation-deployment/neuro-deploy/simple/"
+publish-url = "https://us-west1-python.pkg.dev/evaluation-deployment/neuro-deploy/"
+
+[dependency-groups]
+dev = [
+    "build>=1.3.0",
+]

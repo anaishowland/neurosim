@@ -1,0 +1,41 @@
+# Part 1: The Kubernetes Service Account (the pod's internal identity)
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: default-sa
+  namespace: default
+  annotations:
+    # This annotation links the KSA to the GCP IAM Service Account for external access.
+    iam.gke.io/gcp-service-account: 522950706846-compute@developer.gserviceaccount.com
+---
+# Part 2: The Role (the list of internal permissions)
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  namespace: default
+  name: default-role # This name must match the roleRef in the RoleBinding
+rules:
+- apiGroups: ["batch"]
+  resources: ["jobs"]
+  verbs: ["create", "get", "list", "watch", "delete"]
+- apiGroups: [""]
+  resources: ["pods"]
+  verbs: ["get", "list", "watch"]
+- apiGroups: [""]
+  resources: ["pods/log"]
+  verbs: ["get", "list"]
+---
+# Part 3: The RoleBinding (links the identity to the permissions)
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: default-rolebinding
+  namespace: default
+subjects:
+- kind: ServiceAccount
+  name: default-sa # This must match the name of your ServiceAccount
+  namespace: default
+roleRef:
+  kind: Role
+  name: default-role # This must match the name of your Role
+  apiGroup: rbac.authorization.k8s.io

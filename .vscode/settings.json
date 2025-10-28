@@ -1,0 +1,30 @@
+{
+    "[python]": {
+        "editor.formatOnType": true,
+        "editor.defaultFormatter": "ms-python.autopep8"
+    },
+    "python.defaultInterpreterPath": ".venv/bin/python3",
+    "github.copilot.enable": {
+        "*": true,
+        "plaintext": true,
+        "markdown": false,
+        "scminput": false
+    },
+    "workbench.iconTheme": "material-icon-theme",
+    "typescript.updateImportsOnFileMove.enabled": "always",
+    "javascript.updateImportsOnFileMove.enabled": "always",
+    "git.autofetch": true,
+    "emmet.preferences": {},
+    "editor.formatOnSave": true,
+    "python.createEnvironment.trigger": "off",
+    "python.analysis.typeCheckingMode": "standard",
+    "python.languageServer": "Pylance",
+    "python.analysis.diagnosticSeverityOverrides": {},
+    "pylint.args": [
+        "--generated-members=(cv2.*)",
+        "--extension-pkg-allow-list=cv2"
+    ],
+    "makefile.configureOnOpen": false,
+    "cursorpyright.analysis.diagnosticSeverityOverrides": {},
+    "cursorpyright.analysis.typeCheckingMode": "standard"
+}

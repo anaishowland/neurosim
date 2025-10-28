@@ -1,0 +1,23 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: argo-workflow-task-executor
+  namespace: default
+rules:
+- apiGroups: ["argoproj.io"]
+  resources: ["workflowtaskresults"]
+  verbs: ["create"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: argo-workflow-task-executor-binding
+  namespace: default
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: argo-workflow-task-executor
+subjects:
+- kind: ServiceAccount
+  name: default-sa
+  namespace: default

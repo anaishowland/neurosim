@@ -1,0 +1,231 @@
+apiVersion: argoproj.io/v1alpha1
+kind: WorkflowTemplate
+metadata:
+  name: neurosim-workflow-template
+  namespace: default
+spec:
+  entrypoint: main
+  serviceAccountName: default-sa
+  ttlStrategy:
+    secondsAfterCompletion: 86400  # Clean up after 24 hours
+
+  arguments:
+    parameters:
+    - name: JOB_NAME_TO_MONITOR
+    - name: TOTAL_TASKS
+    - name: BASE_GCS_PATH       # e.g., cme2gz7zn000005os2yuj36h8/01K3XTTFHF56CXQZPBGWK9NZJK/
+    - name: EPISODE_COUNT       # e.g., 2
+
+  templates:
+  - name: main
+    dag:
+      tasks:
+      - name: run-monitor
+        template: monitor-job
+        arguments:
+          parameters:
+          - name: job-name-to-monitor
+            value: "{{workflow.parameters.JOB_NAME_TO_MONITOR}}"
+          - name: total-tasks
+            value: "{{workflow.parameters.TOTAL_TASKS}}"
+      
+      # This task wraps the parallel fan-out step in its own DAG
+      - name: parallel-judge-step
+        dependencies: [run-monitor]
+        template: parallel-judging-wrapper
+
+      # The aggregate step now depends on the wrapper task
+      - name: aggregate-results
+        dependencies: [parallel-judge-step]
+        template: aggregate-template
+
+  # This is the wrapper template that contains the fan-out logic.
+  # This nested structure was working previously for parallel execution.
+  - name: parallel-judging-wrapper
+    dag:
+      tasks:
+      - name: run-parallel-judge-jobs
+        template: judge-job-template
+        arguments:
+          parameters:
+          - name: episode-number
+            value: "{{item}}"
+        withSequence:
+          start: "0"
+          end: "{{=asInt(workflow.parameters.EPISODE_COUNT) - 1}}"
+
+  - name: monitor-job
+    inputs:
+      parameters:
+      - name: job-name-to-monitor
+      - name: total-tasks
+    resource:
+      action: create
+      successCondition: status.succeeded == 1
+      manifest: |
+        apiVersion: batch/v1
+        kind: Job
+        metadata:
+          name: "monitor-{{inputs.parameters.job-name-to-monitor}}"
+          namespace: default
+          labels:
+            app: neurosim-monitor
+            job-type: monitoring
+            workflow: "{{workflow.name}}"
+        spec:
+          completions: 1
+          parallelism: 1
+          backoffLimit: 1
+          activeDeadlineSeconds: 21600
+          ttlSecondsAfterFinished: 86400
+          template:
+            metadata:
+              labels:
+                app: neurosim-monitor
+            spec:
+              restartPolicy: Never
+              serviceAccountName: default-sa
+              automountServiceAccountToken: true
+              containers:
+              - name: monitor
+                image: us-central1-docker.pkg.dev/evaluation-deployment/neurosim-monitor/monitor:latest
+                imagePullPolicy: Always
+                resources:
+                  requests:
+                    cpu: 100m
+                    memory: 256Mi
+                  limits:
+                    cpu: 100m
+                    memory: 256Mi
+                env:
+                - name: GCP_PROJECT_ID
+                  valueFrom:
+                    configMapKeyRef:
+                      name: neurosim-config
+                      key: gcp-project-id
+                - name: GCP_REGION
+                  value: "us-central1"
+                - name: JOB_NAME_TO_MONITOR
+                  value: "{{inputs.parameters.job-name-to-monitor}}"
+                - name: TOTAL_TASKS
+                  value: "{{inputs.parameters.total-tasks}}"
+
+  - name: judge-job-template
+    inputs:
+      parameters:
+      - name: episode-number
+    resource:
+      action: create
+      successCondition: status.succeeded == 1
+      manifest: |
+        apiVersion: batch/v1
+        kind: Job
+        metadata:
+          # Create a unique job name for each episode
+          name: "judge-{{workflow.parameters.JOB_NAME_TO_MONITOR}}-ep{{inputs.parameters.episode-number}}"
+          namespace: default
+          labels:
+            app: neurosim-judge
+            job-type: evaluation
+            workflow: "{{workflow.name}}"
+        spec:
+          completions: 1
+          parallelism: 1
+          backoffLimit: 1
+          activeDeadlineSeconds: 3600  # 1 hour for judge
+          ttlSecondsAfterFinished: 86400
+          template:
+            metadata:
+              labels:
+                app: neurosim-judge
+            spec:
+              restartPolicy: Never
+              serviceAccountName: default-sa
+              automountServiceAccountToken: true
+              containers:
+              - name: judge
+                image: us-central1-docker.pkg.dev/evaluation-deployment/neurosim-judge/neurosim-judge:latest
+                imagePullPolicy: Always
+                resources:
+                  requests:
+                    cpu: 500m
+                    memory: 1Gi
+                  limits:
+                    cpu: 1000m
+                    memory: 2Gi
+                env:
+                # API Keys from Secret
+                - name: OPENAI_API_KEY
+                  valueFrom:
+                    secretKeyRef:
+                      name: llm-api-keys
+                      key: openai-api-key
+                - name: GEMINI_API_KEY
+                  valueFrom:
+                    secretKeyRef:
+                      name: llm-api-keys
+                      key: gemini-api-key
+                # Configuration from ConfigMap
+                - name: GCS_BUCKET_NAME
+                  valueFrom:
+                    configMapKeyRef:
+                      name: neurosim-config
+                      key: gcs-bucket-name
+                - name: GCP_PROJECT_ID
+                  valueFrom:
+                    configMapKeyRef:
+                      name: neurosim-config
+                      key: gcp-project-id
+                # Dynamic value constructed from workflow parameters
+                - name: GCS_DATA_PATH
+                  value: "{{workflow.parameters.BASE_GCS_PATH}}/{{inputs.parameters.episode-number}}"
+                - name: EPISODE_NUMBER
+                  value: "{{inputs.parameters.episode-number}}"
+
+  - name: aggregate-template
+    resource:
+      action: create
+      # Use the success condition for a Job, not a Pod
+      successCondition: status.succeeded == 1
+      manifest: |
+        # Change the resource from Pod to Job
+        apiVersion: batch/v1
+        kind: Job
+        metadata:
+          name: "aggregator-{{workflow.parameters.JOB_NAME_TO_MONITOR}}"
+        # The Pod spec is now nested under spec.template
+        spec:
+          backoffLimit: 1
+          template:
+            spec:
+              serviceAccountName: default-sa
+              automountServiceAccountToken: true
+              restartPolicy: Never
+              containers:
+                - name: aggregator
+                  image: us-central1-docker.pkg.dev/evaluation-deployment/neurosim-judge/neurosim-aggregator:latest
+                  imagePullPolicy: Always
+                  command: ["python", "aggregate_results.py"]
+                  args:
+                    - "{{workflow.parameters.BASE_GCS_PATH}}"
+                    - "{{workflow.parameters.EPISODE_COUNT}}"
+                  env:
+                    - name: GCS_BUCKET_NAME
+                      valueFrom:
+                        configMapKeyRef:
+                          name: neurosim-config
+                          key: gcs-bucket-name
+                    - name: GCP_PROJECT_ID
+                      valueFrom:
+                        configMapKeyRef:
+                          name: neurosim-config
+                          key: gcp-project-id
+                    - name: JOB_NAME_TO_MONITOR
+                      value: "{{workflow.parameters.JOB_NAME_TO_MONITOR}}"
+                  resources:
+                    requests:
+                      cpu: 100m
+                      memory: 256Mi
+                    limits:
+                      cpu: 500m
+                      memory: 512Mi

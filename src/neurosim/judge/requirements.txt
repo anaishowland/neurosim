@@ -1,0 +1,14 @@
+# Core dependencies
+psycopg[binary]>=3.1
+python-dotenv>=1.0.1
+pydantic>=2.6
+openai>=1.40.0
+google-genai>=1.31.0
+Pillow>=10.3.0
+zstandard>=0.23.0
+
+# GCS support (optional)
+google-cloud-storage>=3.3.0
+
+# Note: neurosim package will be installed separately with authentication
+
