@@ -9,13 +9,14 @@ readme = "README.md"
 requires-python = ">=3.11"
 license = { file = "LICENSE" }
 authors = [
-  { name = "Ashwin Thinnappan", email = "ashwin@paradigm-shift.ai" },
-  { name = "Anais Howland", email = "anais@paradigm-shift.ai" },
+  { name = "Anais Howland" },
+  { name = "Ashwin Thinnappan" },
+  { name = "Vaibhav Gupta" },
 ]
-keywords = ["paradigm shift", "simulation", "ml", "evaluation", "agents"]
+keywords = ["paradigm shift", "simulation", "ml", "evaluation", "agents", "ai", "llm"]
 classifiers = [
   "Programming Language :: Python :: 3",
-  "License :: Other/Proprietary License",
+  "License :: OSI Approved :: MIT License",
   "Operating System :: OS Independent",
 ]
 dependencies = [
@@ -46,10 +47,11 @@ judge = ["openai>=1.40.0", "google-genai>=1.31.0", "Pillow>=10.3.0"]
 name = "pypi"
 url = "https://pypi.org/simple/"
 
-[[tool.uv.index]]
-name = "neuro-deploy"
-url = "https://us-west1-python.pkg.dev/evaluation-deployment/neuro-deploy/simple/"
-publish-url = "https://us-west1-python.pkg.dev/evaluation-deployment/neuro-deploy/"
+# Optional: Configure your own Python package registry
+# [[tool.uv.index]]
+# name = "your-registry"
+# url = "https://YOUR_REGION-python.pkg.dev/YOUR_PROJECT_ID/YOUR_REPO/simple/"
+# publish-url = "https://YOUR_REGION-python.pkg.dev/YOUR_PROJECT_ID/YOUR_REPO/"
 
 [dependency-groups]
 dev = [

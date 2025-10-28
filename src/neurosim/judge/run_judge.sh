@@ -2,8 +2,9 @@
 set -euo pipefail
 
 # Activate project venv if present (user-specific path)
-if [ -f "/home/anaishowland/venvs/judge/bin/activate" ]; then
-  source "/home/anaishowland/venvs/judge/bin/activate"
+# Optional: Activate your virtual environment if needed
+# if [ -f "/path/to/your/venv/bin/activate" ]; then
+#   source "/path/to/your/venv/bin/activate"
 fi
 
 if [ $# -lt 1 ]; then
