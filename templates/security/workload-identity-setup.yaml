@@ -6,7 +6,7 @@ metadata:
   namespace: default
   annotations:
     # This annotation links the KSA to the GCP IAM Service Account for external access.
-    iam.gke.io/gcp-service-account: 522950706846-compute@developer.gserviceaccount.com
+    iam.gke.io/gcp-service-account: YOUR_SERVICE_ACCOUNT@YOUR_PROJECT_ID.iam.gserviceaccount.com
 ---
 # Part 2: The Role (the list of internal permissions)
 apiVersion: rbac.authorization.k8s.io/v1

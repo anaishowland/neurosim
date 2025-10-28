@@ -6,7 +6,7 @@
 ### Reporting a vulnerability
 - Do not open public GitHub issues for security-related matters.
 - Preferred: open a private GitHub Security Advisory for `ParadigmShift-AI-Corp/neurosim`.
-- Alternatively, email: security@paradigm-shift.ai
+- Alternatively, open an issue on GitHub
 
 Please include:
 - A clear description and impact

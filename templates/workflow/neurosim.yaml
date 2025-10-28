@@ -104,7 +104,7 @@ spec:
                       name: neurosim-config
                       key: gcp-project-id
                 - name: GCP_REGION
-                  value: "us-central1"
+                  value: "YOUR_GCP_REGION"
                 - name: JOB_NAME_TO_MONITOR
                   value: "{{inputs.parameters.job-name-to-monitor}}"
                 - name: TOTAL_TASKS

@@ -32,7 +32,7 @@ class GeminiAdapter(Adapter):
             raise ValueError("Model is not a Gemini model")
         super().__init__(request)
         self._genai = genai.Client(
-            vertexai=True, project=os.getenv('GCP_PROJECT_ID', 'your-gcp-project-id'), location='us-central1')
+            vertexai=True, project=os.getenv('GCP_PROJECT_ID', 'your-gcp-project-id'), location=os.getenv('GCP_REGION', 'us-central1'))
 
     async def invoke(self, messages: List[Any], output_format: Optional[Type[Any]] = None) -> Adapter.CompletionWrapper:
         """

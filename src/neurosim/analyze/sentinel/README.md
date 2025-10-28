@@ -4,4 +4,4 @@ export FIRESTORE_COLLECTION=agent-eval-status
 export FIRESTORE_DATABASE=agent-eval-status
 
 export GCP_PROJECT_ID=your-gcp-project-id
-export GCP_REGION=us-central1
+export GCP_REGION=your-gcp-region
