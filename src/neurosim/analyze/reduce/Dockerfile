@@ -20,7 +20,8 @@ COPY . /app
 
 # Build arguments for private repository access
 ARG GCLOUD_ACCESS_TOKEN
-ARG PYTHON_REPO_URL="us-west1-python.pkg.dev/evaluation-deployment/neuro-deploy/simple/"
+# Optional: Replace with your own Python package registry URL
+ARG PYTHON_REPO_URL="YOUR_REGION-python.pkg.dev/YOUR_PROJECT_ID/YOUR_REPO/simple/"
 
 # Install neurosim with monitor dependencies
 # Use uv for faster dependency resolution and installation
@@ -57,7 +58,7 @@ COPY pyproject.toml /app/
 ENV PYTHONUNBUFFERED=1
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONPATH=/app/src
-ENV GCP_PROJECT_ID=evaluation-deployment
+ENV GCP_PROJECT_ID=YOUR_GCP_PROJECT_ID
 ENV GCP_REGION=us-central1
 
 # Default command

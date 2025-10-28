@@ -88,7 +88,7 @@ spec:
               automountServiceAccountToken: true
               containers:
               - name: monitor
-                image: us-central1-docker.pkg.dev/evaluation-deployment/neurosim-monitor/monitor:latest
+                image: YOUR_REGION-docker.pkg.dev/YOUR_PROJECT_ID/YOUR_REPO/monitor:latest
                 imagePullPolicy: Always
                 resources:
                   requests:
@@ -144,7 +144,7 @@ spec:
               automountServiceAccountToken: true
               containers:
               - name: judge
-                image: us-central1-docker.pkg.dev/evaluation-deployment/neurosim-judge/neurosim-judge:latest
+                image: YOUR_REGION-docker.pkg.dev/YOUR_PROJECT_ID/YOUR_REPO/neurosim-judge:latest
                 imagePullPolicy: Always
                 resources:
                   requests:
@@ -203,7 +203,7 @@ spec:
               restartPolicy: Never
               containers:
                 - name: aggregator
-                  image: us-central1-docker.pkg.dev/evaluation-deployment/neurosim-judge/neurosim-aggregator:latest
+                  image: YOUR_REGION-docker.pkg.dev/YOUR_PROJECT_ID/YOUR_REPO/neurosim-aggregator:latest
                   imagePullPolicy: Always
                   command: ["python", "aggregate_results.py"]
                   args:

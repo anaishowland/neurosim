@@ -44,22 +44,22 @@ judge:
 # Docker publish targets
 publish-core:
 	@echo "[INFO] Publishing neurosim-base image..."
-	sudo docker tag neurosim-base:latest us-central1-docker.pkg.dev/evaluation-deployment/neurosim-base/neurosim-base:latest
-	sudo docker push us-central1-docker.pkg.dev/evaluation-deployment/neurosim-base/neurosim-base:latest
+	sudo docker tag neurosim-base:latest YOUR_REGION-docker.pkg.dev/YOUR_PROJECT_ID/YOUR_REPO/neurosim-base:latest
+	sudo docker push YOUR_REGION-docker.pkg.dev/YOUR_PROJECT_ID/YOUR_REPO/neurosim-base:latest
 
 publish-monitor:
 	@echo "[INFO] Publishing monitor image..."
-	sudo docker tag neurosim-monitor us-central1-docker.pkg.dev/evaluation-deployment/neurosim-monitor/monitor:latest
-	sudo docker push us-central1-docker.pkg.dev/evaluation-deployment/neurosim-monitor/monitor:latest
+	sudo docker tag neurosim-monitor YOUR_REGION-docker.pkg.dev/YOUR_PROJECT_ID/YOUR_REPO/monitor:latest
+	sudo docker push YOUR_REGION-docker.pkg.dev/YOUR_PROJECT_ID/YOUR_REPO/monitor:latest
 
 publish-judge:
 	@echo "[INFO] Publishing judge image..."
-	sudo docker tag neurosim-judge us-central1-docker.pkg.dev/evaluation-deployment/neurosim-judge/neurosim-judge:latest
-	sudo docker push us-central1-docker.pkg.dev/evaluation-deployment/neurosim-judge/neurosim-judge:latest
+	sudo docker tag neurosim-judge YOUR_REGION-docker.pkg.dev/YOUR_PROJECT_ID/YOUR_REPO/neurosim-judge:latest
+	sudo docker push YOUR_REGION-docker.pkg.dev/YOUR_PROJECT_ID/YOUR_REPO/neurosim-judge:latest
 
 
 publish-sentinel:
 	@echo "Pushing Docker image to repository..."
-	sudo docker tag neurosim-monitor:latest us-central1-docker.pkg.dev/evaluation-deployment/neurosim-monitor/monitor:latest
-	sudo docker push us-central1-docker.pkg.dev/evaluation-deployment/neurosim-monitor/monitor:latest
+	sudo docker tag neurosim-monitor:latest YOUR_REGION-docker.pkg.dev/YOUR_PROJECT_ID/YOUR_REPO/monitor:latest
+	sudo docker push YOUR_REGION-docker.pkg.dev/YOUR_PROJECT_ID/YOUR_REPO/monitor:latest
 	@echo "Docker image pushed"

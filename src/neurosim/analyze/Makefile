@@ -7,12 +7,12 @@ TAG ?=
 
 # --- Service Definitions ---
 SENTINEL_DIR := sentinel
-SENTINEL_REPO := us-central1-docker.pkg.dev/evaluation-deployment/neurosim-monitor
+SENTINEL_REPO := YOUR_REGION-docker.pkg.dev/YOUR_PROJECT_ID/YOUR_REPO
 SENTINEL_NAME := monitor
 SENTINEL_FULL_IMAGE_NAME := $(SENTINEL_REPO)/$(SENTINEL_NAME)
 
 AGGREGATOR_DIR := reduce
-AGGREGATOR_REPO := us-central1-docker.pkg.dev/evaluation-deployment/neurosim-judge
+AGGREGATOR_REPO := YOUR_REGION-docker.pkg.dev/YOUR_PROJECT_ID/YOUR_REPO
 AGGREGATOR_NAME := neurosim-aggregator
 AGGREGATOR_FULL_IMAGE_NAME := $(AGGREGATOR_REPO)/$(AGGREGATOR_NAME)
 

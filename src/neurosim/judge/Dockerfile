@@ -27,7 +27,7 @@ RUN pip install -r requirements.txt
 # Install private neurosim package if token is provided
 RUN if [ -n "$GCLOUD_ACCESS_TOKEN" ]; then \
         echo "Installing private neurosim package..." && \
-        pip install --index-url "https://oauth2accesstoken:${GCLOUD_ACCESS_TOKEN}@us-west1-python.pkg.dev/evaluation-deployment/neuro-deploy/simple/" neurosim; \
+        pip install --index-url "https://oauth2accesstoken:${GCLOUD_ACCESS_TOKEN}@YOUR_REGION-python.pkg.dev/YOUR_PROJECT_ID/YOUR_REPO/simple/" neurosim; \
     else \
         echo "No token provided, skipping private package installation"; \
     fi
