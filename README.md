@@ -5,9 +5,9 @@
 
 **Neurosim** is a Python framework for building, running, and evaluating AI agent systems. It provides core primitives for agent evaluation, cloud storage integration, and an LLM-as-a-judge system for automated scoring.
 
-**Developed at Paradigm Shift AI** by Anais Howland, Ashwin Thinnappan, Vaibhav Gupta, and Jameel Shahid Mohammed
+**Developed at Paradigm Shift AI**
 
-See [AUTHORS.md](AUTHORS.md) for detailed contributor information.
+**Contributors**: Anais Howland, Ashwin Thinnappan, Vaibhav Gupta, Jameel Shahid Mohammed
 
 ## Architecture Overview
 
@@ -69,7 +69,6 @@ See [AUTHORS.md](AUTHORS.md) for detailed contributor information.
 - [LLM Judge](#llm-judge)
 - [Configuration](#configuration)
 - [Development](#development)
-- [Contributing](#contributing)
 - [License](#license)
 - [Citation](#citation)
 
@@ -345,18 +344,27 @@ python -m neurosim.judge.evaluate_results \
 
 ### Environment Variables
 
-| Variable | Required | Description |
-|----------|----------|-------------|
-| `GCS_BUCKET_NAME` | Yes | Google Cloud Storage bucket name |
-| `GOOGLE_APPLICATION_CREDENTIALS` | Yes* | Path to GCP service account key JSON |
-| `GCP_PROJECT_ID` | No | GCP project ID for Firestore |
-| `FIRESTORE_DATABASE` | No | Firestore database name (default: `(default)`) |
-| `LOG_LEVEL` | No | Logging level: DEBUG, INFO, WARNING, ERROR (default: INFO) |
-| `OPENAI_API_KEY` | No** | Required for OpenAI judge models |
-| `GOOGLE_API_KEY` | No** | Required for Gemini judge models |
+Create a `.env` file with these variables:
 
-\* Or use `gcloud auth application-default login`  
-\** Required when using LLM judge
+```bash
+# Required
+GCS_BUCKET_NAME=your-gcs-bucket-name
+GOOGLE_APPLICATION_CREDENTIALS=/path/to/service-account-key.json
+
+# Optional - GCP
+GCP_PROJECT_ID=your-gcp-project-id
+GCP_REGION=us-central1
+FIRESTORE_DATABASE=(default)
+FIRESTORE_COLLECTION=evaluations
+
+# Optional - LLM Judge
+OPENAI_API_KEY=your_openai_key
+GOOGLE_API_KEY=your_google_key
+JUDGE_MAX_CONCURRENCY=50
+
+# Optional - Logging
+LOG_LEVEL=INFO
+```
 
 ## Development
 
@@ -398,20 +406,6 @@ isort src/ examples/
 mypy src/neurosim
 ```
 
-## Contributing
-
-We welcome contributions! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
-
-### Quick Contribution Guide
-
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feat/amazing-feature`)
-3. Make your changes
-4. Run tests and linting
-5. Commit your changes (`git commit -m 'feat: add amazing feature'`)
-6. Push to the branch (`git push origin feat/amazing-feature`)
-7. Open a Pull Request
-
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
@@ -432,10 +426,12 @@ If you use this work in your research or projects, please cite:
 
 **Developed at Paradigm Shift AI**
 
-## Acknowledgments
-
-This project was developed at Paradigm Shift AI to provide a robust framework for evaluating AI agent systems. 
+This project was created to provide a robust framework for evaluating AI agent systems.
 
 ## Related Projects
 
 - [Agent-CE](https://github.com/anaishowland/agent-CE): Continuous Evaluation platform with pre-built agent integrations (Browser Use, Notte, Anthropic/OpenAI Computer Use)
+
+## About This Release
+
+This is a snapshot release of work developed at Paradigm Shift AI. The code is provided as-is under the MIT License for the community to use, modify, and build upon.
