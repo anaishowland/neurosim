@@ -7,6 +7,48 @@
 
 **Created by**: Anais Howland, Ashwin Thinnappan, Vaibhav Gupta at Paradigm Shift AI
 
+## Architecture Overview
+
+```
+┌─────────────────────────────────────────────────┐
+│         Your Agent Implementation               │
+│         (extends Evaluation class)              │
+│                                                 │
+│  async def run() -> AgentResult                │
+│  def compute_steps()                           │
+│  def compute_tokens()                          │
+└─────────────────────────────────────────────────┘
+                    │
+                    ▼
+┌─────────────────────────────────────────────────┐
+│           Neurosim Framework                    │
+│  ┌───────────────────────────────────────────┐ │
+│  │  Evaluation Base Class                    │ │
+│  │  • execute() orchestration                │ │
+│  │  • CLI argument parsing                   │ │
+│  │  • Result persistence                     │ │
+│  └───────────────────────────────────────────┘ │
+│  ┌───────────────────────────────────────────┐ │
+│  │  GCSUploader                              │ │
+│  │  • upload_json() - Results (zstd)         │ │
+│  │  • upload_png() - Screenshots             │ │
+│  └───────────────────────────────────────────┘ │
+│  ┌───────────────────────────────────────────┐ │
+│  │  LLM Judge                                │ │
+│  │  • Score: 0-100 (≥70 = success)           │ │
+│  │  • Reasoning & suggestions                │ │
+│  └───────────────────────────────────────────┘ │
+└─────────────────────────────────────────────────┘
+                    │
+                    ▼
+┌─────────────────────────────────────────────────┐
+│        Google Cloud Storage                     │
+│  results/{user}/{job}/{episode}/{task}/        │
+│    ├── result.json.zst (compressed)            │
+│    └── screenshot_*.png                        │
+└─────────────────────────────────────────────────┘
+```
+
 ## Features
 
 - **Agent Evaluation Framework**: Abstract base class for implementing custom agent evaluations
