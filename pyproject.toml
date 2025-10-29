@@ -12,6 +12,7 @@ authors = [
   { name = "Anais Howland" },
   { name = "Ashwin Thinnappan" },
   { name = "Vaibhav Gupta" },
+  { name = "Jameel Shahid Mohammed" },
 ]
 keywords = ["paradigm shift", "simulation", "ml", "evaluation", "agents", "ai", "llm"]
 classifiers = [

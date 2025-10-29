@@ -5,7 +5,9 @@
 
 **Neurosim** is a Python framework for building, running, and evaluating AI agent systems. It provides core primitives for agent evaluation, cloud storage integration, and an LLM-as-a-judge system for automated scoring.
 
-**Created by**: Anais Howland, Ashwin Thinnappan, Vaibhav Gupta at Paradigm Shift AI
+**Developed at Paradigm Shift AI** by Anais Howland, Ashwin Thinnappan, Vaibhav Gupta, and Jameel Shahid Mohammed
+
+See [AUTHORS.md](AUTHORS.md) for detailed contributor information.
 
 ## Architecture Overview
 
@@ -420,7 +422,7 @@ If you use this work in your research or projects, please cite:
 
 ```bibtex
 @software{neurosim2025,
-  author = {Howland, Anais and Thinnappan, Ashwin and Gupta, Vaibhav},
+  author = {Howland, Anais and Thinnappan, Ashwin and Gupta, Vaibhav and Mohammed, Jameel Shahid},
   title = {Neurosim: Core Evaluation Framework for AI Agents},
   year = {2025},
   publisher = {Paradigm Shift AI},

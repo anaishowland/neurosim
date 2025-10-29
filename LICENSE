@@ -1,39 +1,27 @@
-Paradigm Shift AI Internal Use License v1.0
+MIT License
 
-Copyright (c) 2025 Paradigm Shift AI. All rights reserved.
+Copyright (c) 2025 Paradigm Shift AI
 
-1. Grant of License
-Subject to the terms and conditions of this License, Paradigm Shift AI ("Licensor") grants only its employees and individual contractors acting on behalf of Paradigm Shift AI and its wholly owned affiliates (collectively, "Authorized Personnel") a limited, revocable, non-exclusive, non-transferable, and non-sublicensable license to use, reproduce, and modify the Software solely for internal business purposes of Paradigm Shift AI. No other rights are granted.
+Authors:
+  Anais Howland
+  Ashwin Thinnappan
+  Vaibhav Gupta
+  Jameel Shahid Mohammed
 
-2. Restrictions
-Authorized Personnel shall not, and shall not permit any third party to:
-  a) distribute, publish, disclose, sell, lease, sublicense, host, or otherwise make the Software or any derivative works available to any third party;
-  b) use the Software to provide services to or for the benefit of any third party other than Paradigm Shift AI and its wholly owned affiliates;
-  c) remove, obscure, or alter any proprietary notices or marks;
-  d) use the Software for benchmarking or to publish performance results without prior written consent of Licensor;
-  e) reverse engineer, decompile, or disassemble the Software except to the extent such restriction is prohibited by applicable law.
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
 
-3. Ownership
-The Software is licensed, not sold. Licensor and its licensors retain all right, title, and interest in and to the Software and all intellectual property rights therein, including any modifications or derivative works created by Authorized Personnel.
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
 
-4. Confidentiality
-The Software, its source code, and any non-public information related thereto are the confidential information of Licensor. Authorized Personnel must protect such information with at least the same degree of care used to protect Paradigm Shift AI's own confidential information and not less than a reasonable degree of care, and may use it only as expressly permitted under this License.
-
-5. Third-Party Components
-The Software may include or be distributed with third-party software components that are subject to separate open-source or proprietary licenses. Such components are licensed under their respective terms. Nothing in this License limits your rights under those third-party licenses.
-
-6. Term and Termination
-This License is effective until terminated. It automatically terminates when an individual ceases to be Authorized Personnel. Licensor may terminate this License at any time upon written notice. Upon termination, all use must cease and all copies and derivatives must be destroyed or returned. Sections 3–9 survive termination.
-
-7. Disclaimer of Warranties
-THE SOFTWARE IS PROVIDED "AS IS" AND "AS AVAILABLE" WITHOUT WARRANTIES OF ANY KIND, WHETHER EXPRESS, IMPLIED, STATUTORY, OR OTHERWISE, INCLUDING BUT NOT LIMITED TO WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, TITLE, AND NON-INFRINGEMENT. USE IS AT THE USER'S OWN RISK.
-
-8. Limitation of Liability
-TO THE MAXIMUM EXTENT PERMITTED BY LAW, IN NO EVENT SHALL LICENSOR OR ITS AFFILIATES BE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, EXEMPLARY, OR PUNITIVE DAMAGES, OR ANY LOSS OF PROFITS, REVENUE, DATA, OR GOODWILL, ARISING OUT OF OR RELATING TO THIS LICENSE OR THE USE OF THE SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGES. LICENSOR'S TOTAL LIABILITY SHALL NOT EXCEED ONE HUNDRED U.S. DOLLARS (US$100).
-
-9. Governing Law; Venue
-This License shall be governed by and construed in accordance with the laws of the State of California, without regard to its conflict of law principles. The state and federal courts located in San Francisco County, California shall have exclusive jurisdiction.
-
-10. Contact
-For questions regarding this License, please open an issue on GitHub.
-
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
